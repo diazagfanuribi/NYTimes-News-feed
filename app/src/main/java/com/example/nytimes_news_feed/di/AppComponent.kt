@@ -2,6 +2,8 @@ package com.example.nytimes_news_feed.di
 
 
 import com.example.nytimes_news_feed.core.di.CoreComponent
+import com.example.nytimes_news_feed.detail.DetailFragment
+import com.example.nytimes_news_feed.favorite.FavoriteFragment
 import com.example.nytimes_news_feed.home.HomeFragment
 import dagger.Component
 
@@ -17,4 +19,8 @@ interface AppComponent {
     }
 
     fun inject(fragment: HomeFragment)
+
+    fun inject(fragment: DetailFragment)
+
+    fun inject(fragment: FavoriteFragment)
 }

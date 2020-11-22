@@ -13,9 +13,20 @@
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.nytimes_news_feed.detail.DetailFragment"
-        android:label="Detail" />
+        android:label="Detail" >
+        <argument
+            android:name="news"
+            app:argType="com.example.nytimes_news_feed.core.domain.model.NewsApi" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.nytimes_news_feed.favorite.FavoriteFragment"
+        android:label="FavoriteFragment" />
 </navigation>

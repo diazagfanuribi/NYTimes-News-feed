@@ -10,7 +10,23 @@ import androidx.room.PrimaryKey
 data class NewsEntity(
     @PrimaryKey
     @NonNull
-    @ColumnInfo(name = "pk")
-    var pk: Int,
+    @ColumnInfo(name = "id")
+    val id : String,
+    @ColumnInfo(name = "title")
+    val title:String?,
+    @ColumnInfo(name = "snippet")
+    val snippet : String?,
+    @ColumnInfo(name = "imageUrl")
+    val imageUrl: String?,
+    @ColumnInfo(name = "leadParagraph")
+    val leadParagraph : String?,
+    @ColumnInfo(name = "website")
+    val website : String?,
+    @ColumnInfo(name = "byline")
+    val byline : String?,
+    @ColumnInfo(name = "pubDate")
+    val pubDate : String?,
+    @ColumnInfo(name = "source")
+    val source : String?
 
 )

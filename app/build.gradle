@@ -18,6 +18,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_KEY", api_key)
     }
 
     buildTypes {
@@ -32,6 +34,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs += ["-Xopt-in=kotlin.RequiresOptIn"]
     }
 
     buildFeatures {
@@ -68,7 +71,6 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
 
-//    def arch_version = "2.1.0"
     // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
@@ -77,7 +79,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     // optional - helpers for implementing LifecycleOwner in a Service
     implementation "androidx.lifecycle:lifecycle-service:$lifecycle_version"
-
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     // Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
@@ -89,4 +91,11 @@ dependencies {
     //by viewModels di Activity dan Fragment
     implementation "androidx.activity:activity-ktx:$activity_ktx_version"
     implementation "androidx.fragment:fragment-ktx:$fragment_ktx_version"
+
+    implementation "androidx.paging:paging-runtime:$paging_version"
+
+}
+
+kapt {
+    correctErrorTypes true
 }

@@ -1,6 +1,9 @@
 package com.example.nytimes_news_feed.core.di
 
 import android.content.Context
+import com.example.nytimes_news_feed.core.domain.repository.IDetailRepository
+import com.example.nytimes_news_feed.core.domain.repository.IFavoriteRepository
+import com.example.nytimes_news_feed.core.domain.repository.IHomeRepository
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -16,5 +19,7 @@ interface CoreComponent {
         fun create(@BindsInstance context: Context): CoreComponent
     }
 
-//    fun provideRepository() : ITourismRepository
+    fun provideHomeRepository() : IHomeRepository
+    fun provideDetailRepository() : IDetailRepository
+    fun provideFavoriteRepository() : IFavoriteRepository
 }
