@@ -8,15 +8,17 @@ import com.example.nytimes_news_feed.core.data.source.local.entity.FavoriteEntit
 import com.example.nytimes_news_feed.core.domain.repository.IFavoriteRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class FavoriteRepository @Inject constructor(private val localDataSource: LocalDataSource): IFavoriteRepository{
     override fun getFavorites() : Flow<PagingData<FavoriteEntity>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 20,
+                pageSize = 10,
                 enablePlaceholders = true,
                 prefetchDistance = 5,
-                initialLoadSize = 40),
+                initialLoadSize = 20),
             pagingSourceFactory = { FavoritePagingSource(localDataSource = localDataSource) }
         ).flow
     }

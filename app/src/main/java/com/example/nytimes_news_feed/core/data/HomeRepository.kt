@@ -21,9 +21,6 @@ class HomeRepository @Inject constructor(
 ): IHomeRepository {
 
     override fun getSearchResultStream(query: String): Flow<PagingData<NewsEntity>> {
-        Log.d("GithubRepository", "New query: $query")
-
-        // appending '%' so we can allow other characters to be before and after the query string
         val dbQuery = "%${query.replace(' ', '%')}%"
         val pagingSourceFactory = { localDataSource.getReposByName(dbQuery) }
 

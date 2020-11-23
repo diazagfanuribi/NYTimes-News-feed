@@ -5,7 +5,9 @@ import com.example.nytimes_news_feed.core.data.source.local.entity.FavoriteEntit
 import com.example.nytimes_news_feed.core.domain.repository.IDetailRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
+import javax.inject.Singleton
 
+@Singleton
 class DetailRepository @Inject
 constructor(private val localDataSource: LocalDataSource): IDetailRepository {
     override suspend fun addFavorite(favoriteEntity: FavoriteEntity) {

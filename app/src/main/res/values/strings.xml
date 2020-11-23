@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">NYTimes-News-Feed</string>
-    <string name="retry">Coba Lagi</string>
-    <string name="search_hint">Pencarian</string>
-
+    <string name="retry">Retry</string>
+    <string name="search_hint">Search</string>
+    <string name="source">Source :</string>
+    <string name="website">Website :</string>
+    <string name="no_result">Results could not be loaded</string>
 </resources>

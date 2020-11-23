@@ -19,7 +19,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import java.io.InvalidObjectException
 
-private const val GITHUB_STARTING_PAGE_INDEX = 0
+private const val STARTING_PAGE_INDEX = 0
 
 @OptIn(ExperimentalPagingApi::class)
 class NewsRemoteMediator(
@@ -35,7 +35,7 @@ class NewsRemoteMediator(
         val page = when (loadType) {
             LoadType.REFRESH -> {
                 val remoteKeys = getRemoteKeyClosestToCurrentPosition(state)
-                remoteKeys?.nextKey?.minus(1) ?: GITHUB_STARTING_PAGE_INDEX
+                remoteKeys?.nextKey?.minus(1) ?: STARTING_PAGE_INDEX
             }
             LoadType.PREPEND -> {
                 val remoteKeys = getRemoteKeyForFirstItem(state) ?: return MediatorResult.Error(InvalidObjectException("Result is empty"))
@@ -70,7 +70,7 @@ class NewsRemoteMediator(
             if (loadType == LoadType.REFRESH) {
                 localDataSource.deleteWithtransaction()
             }
-            val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
+            val prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1
             val nextKey = if (endOfPaginationReached) null else page + 1
             val keys = news.map {
                 RemoteKeys(newsId = it.id, prevKey = prevKey, nextKey = nextKey)

@@ -1,34 +1,30 @@
-package com.example.nytimes_news_feed.home
+package com.example.nytimes_news_feed.favorite
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.nytimes_news_feed.R
 import com.example.nytimes_news_feed.core.domain.model.NewsApi
 import com.example.nytimes_news_feed.databinding.RepoViewItemBinding
 
-class NewsAdapter(private val listener: OnItemClickListener) :
-    PagingDataAdapter<NewsApi, NewsAdapter.NewsViewHolder>(
+
+class FavoriteAdapter(private val listener: OnItemClickListener) :
+    PagingDataAdapter<NewsApi, FavoriteAdapter.FavoriteViewHolder>(
         COMPARATOR
     ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
         val binding = RepoViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return NewsViewHolder(binding)
+        return FavoriteViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoriteViewHolder, position: Int) {
         getItem(position)?.let {
-            Log.i("News data rv", it.imageUrl.toString())
             holder.bind(it)
         }
     }
@@ -48,7 +44,7 @@ class NewsAdapter(private val listener: OnItemClickListener) :
             }
         }
     }
-    inner class NewsViewHolder(private val binding: RepoViewItemBinding
+    inner class FavoriteViewHolder(private val binding: RepoViewItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
@@ -72,6 +68,7 @@ class NewsAdapter(private val listener: OnItemClickListener) :
                 .load(news.imageUrl)
                 .centerCrop()
                 .transition(DrawableTransitionOptions.withCrossFade())
+                .error(R.drawable.ic_error)
                 .into(binding.poster)
 
         }

@@ -21,7 +21,9 @@ import com.example.nytimes_news_feed.MyApplication
 import com.example.nytimes_news_feed.R
 import com.example.nytimes_news_feed.core.ui.ViewModelFactory
 import com.example.nytimes_news_feed.databinding.FragmentDetailBinding
+import com.example.nytimes_news_feed.databinding.FragmentHomeBinding
 import com.example.nytimes_news_feed.favorite.FavoriteViewModel
+import kotlinx.android.synthetic.main.fragment_detail.*
 import javax.inject.Inject
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
@@ -33,11 +35,12 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
     private val args by navArgs<DetailFragmentArgs>()
 
-    private lateinit var binding : FragmentDetailBinding
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentDetailBinding.bind(view)
+        _binding = FragmentDetailBinding.bind(view)
         var isFavorite = false
 
         val news = args.news
@@ -68,6 +71,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                         progressBar.isVisible = false
                         textViewCreator.isVisible = true
                         textViewDescription.isVisible = news.leadParagraph != null
+                        textViewTitle.isVisible  = true
                         return false
                     }
                 })
@@ -86,6 +90,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
                 paint.isUnderlineText = true
             }
 
+            textviewByline.text = news.byline
+
+            textviewSource.text = news.source
+            textViewTitle.text = news.title
+
             fab.setOnClickListener {
                 if(isFavorite){
                     detailViewModel.deleteFavorite(news)
@@ -96,6 +105,8 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
             }
         }
+
+
         detailViewModel.favoriteIds.observe(viewLifecycleOwner) {
             isFavorite = it.contains(news.id)
             setStatusFavorite(isFavorite)
@@ -116,5 +127,9 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
 }

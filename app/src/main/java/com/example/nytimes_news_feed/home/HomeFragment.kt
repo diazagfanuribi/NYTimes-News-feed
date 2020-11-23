@@ -46,7 +46,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), NewsAdapter.OnItemClickLi
     private lateinit var adapter: NewsAdapter
 
     private fun search(query: String) {
-        // Make sure we cancel the previous job before creating a new one
         searchJob?.cancel()
         searchJob = lifecycleScope.launch {
 
@@ -71,11 +70,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), NewsAdapter.OnItemClickLi
             )
 
             adapter.addLoadStateListener { loadState ->
-                // Only show the list if refresh succeeds.
                 binding.rvNews.isVisible = loadState.source.refresh is LoadState.NotLoading
-                // Show loading spinner during initial load or refresh.
                 binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-                // Show the retry state if initial load or refresh fails.
                 binding.retryButton.isVisible = loadState.source.refresh is LoadState.Error
 
                 retryButton.setOnClickListener {
@@ -110,29 +106,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), NewsAdapter.OnItemClickLi
                 true
             }
             else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    private fun initAdapter() {
-        adapter.addLoadStateListener { loadState ->
-            // Only show the list if refresh succeeds.
-            binding.rvNews.isVisible = loadState.source.refresh is LoadState.NotLoading
-            // Show loading spinner during initial load or refresh.
-            binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-            // Show the retry state if initial load or refresh fails.
-            binding.retryButton.isVisible = loadState.source.refresh is LoadState.Error
-
-            // Toast on any error, regardless of whether it came from RemoteMediator or PagingSource
-            val errorState = loadState.source.append as? LoadState.Error
-                ?: loadState.source.prepend as? LoadState.Error
-                ?: loadState.append as? LoadState.Error
-                ?: loadState.prepend as? LoadState.Error
-
-            if (loadState.source.refresh is LoadState.NotLoading &&
-                loadState.append.endOfPaginationReached &&
-                adapter.itemCount < 1) {
-                binding.rvNews.isVisible = false
-            }
         }
     }
 
