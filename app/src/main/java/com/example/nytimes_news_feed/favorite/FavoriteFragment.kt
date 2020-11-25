@@ -27,14 +27,13 @@ class FavoriteFragment: Fragment(R.layout.fragment_favorite), FavoriteAdapter.On
     private val favoriteViewModel: FavoriteViewModel by viewModels {
         factory
     }
-    private var _binding: FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
+    lateinit private var binding: FragmentFavoriteBinding
 
     private lateinit var adapter: FavoriteAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentFavoriteBinding.bind(view)
+        binding = FragmentFavoriteBinding.bind(view)
 
         adapter = FavoriteAdapter(this)
 
@@ -82,8 +81,5 @@ class FavoriteFragment: Fragment(R.layout.fragment_favorite), FavoriteAdapter.On
         findNavController().navigate(action)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }

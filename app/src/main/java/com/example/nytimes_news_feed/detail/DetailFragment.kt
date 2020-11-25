@@ -35,12 +35,11 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     }
     private val args by navArgs<DetailFragmentArgs>()
 
-    private var _binding: FragmentDetailBinding? = null
-    private val binding get() = _binding!!
+    lateinit private var binding: FragmentDetailBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentDetailBinding.bind(view)
+        binding = FragmentDetailBinding.bind(view)
         var isFavorite = false
 
         val news = args.news
@@ -127,9 +126,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         (requireActivity().application as MyApplication).appComponent.inject(this)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 
 }

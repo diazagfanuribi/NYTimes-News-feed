@@ -38,8 +38,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), NewsAdapter.OnItemClickLi
     private val homeViewModel: HomeViewModel by viewModels {
         factory
     }
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    lateinit private var binding: FragmentHomeBinding
+
 
     private var searchJob: Job? = null
 
@@ -57,7 +57,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), NewsAdapter.OnItemClickLi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentHomeBinding.bind(view)
+        binding = FragmentHomeBinding.bind(view)
 
         adapter = NewsAdapter(this)
 
